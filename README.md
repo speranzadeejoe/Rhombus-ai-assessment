@@ -4,7 +4,7 @@ A scheduled ETL from **AWS S3** (a messy orders CSV) through a cleaning pipeline
 
 > **Note:** Partway through, my AI-built pipeline disappeared from the Rhombus canvas, and I had to rebuild the entire pipeline. **All findings, drift results and validation in this repo come from the original pipeline.** The rebuilt pipeline was used only to re-run the UI tests. See [Pipeline rebuild](#pipeline-rebuild-before-submission-f11).
 
-**Demo video:** _ADD VIDEO LINK HERE_
+**Demo video:** https://drive.google.com/file/d/1eeapRmYAkPnBGr-ddexS8D0H3RrB2czr/view?usp=drive_link
 **Dashboard (bonus):** _ADD GITHUB PAGES LINK HERE_ (source: [`dashboard/index.html`](https://speranzadeejoe.github.io/Rhombus-ai-assessment/dashboard/)). It covers pipeline health by scenario, a capability heat map, output consistency, execution time, the validation matrix and the run ledger.
 
 ---
