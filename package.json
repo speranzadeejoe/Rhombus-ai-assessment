@@ -1,0 +1,15 @@
+{
+  "name": "rhombus-ai-assessment-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "auth": "node save-session.mjs",
+    "test:ui": "playwright test --project=ui",
+    "test:api": "playwright test --project=api",
+    "test": "playwright test --project=ui --project=api",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0"
+  }
+}

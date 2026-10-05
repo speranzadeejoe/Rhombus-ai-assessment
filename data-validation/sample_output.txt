@@ -1,0 +1,209 @@
+
+=== run01: Baseline, manual run (original pipeline) ===
+  [PASS] schema: columns        missing=none
+  [FAIL] row count              in=212 unique=200 out=201
+  [FAIL] dedupe: order_id       duplicate ids in output=1
+  [PASS] ids preserved          lost ids=none
+  [FAIL] rows matched to input  matched=201 of 200
+  [PASS] names trimmed+title    bad=0 e.g. []
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=196 of 196 e.g. [['ORD-1030', '349.00', '34900.0'], ['ORD-1163', '39.95', '3995.0']]
+  [FAIL] quantity flags         negative=6 flagged_ok=False; missing/non-numeric=11 flagged_ok=True
+  [FAIL] email flags            mismatched=168
+  [FAIL] emails unaltered       altered=179 e.g. ['ethanpatel7examplecom', 'arjunmartin92examplecom']
+  [FAIL] order_id format        bad=201
+  [FAIL] semantic: price scale  median price 8950 vs baseline 89.5 (x100.0) -> likely cents/units change
+  [PASS] semantic: dates moved  0 dates differ from baseline for same orders
+
+=== run02: Baseline, scheduled run (original pipeline) ===
+  [PASS] schema: columns        missing=none
+  [FAIL] row count              in=212 unique=200 out=201
+  [FAIL] dedupe: order_id       duplicate ids in output=1
+  [PASS] ids preserved          lost ids=none
+  [FAIL] rows matched to input  matched=201 of 200
+  [PASS] names trimmed+title    bad=0 e.g. []
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=196 of 196 e.g. [['ORD-1030', '349.00', '34900.0'], ['ORD-1163', '39.95', '3995.0']]
+  [FAIL] quantity flags         negative=6 flagged_ok=False; missing/non-numeric=11 flagged_ok=True
+  [FAIL] email flags            mismatched=168
+  [FAIL] emails unaltered       altered=179 e.g. ['ethanpatel7examplecom', 'arjunmartin92examplecom']
+  [FAIL] order_id format        bad=201
+  [FAIL] semantic: price scale  median price 8950 vs baseline 89.5 (x100.0) -> likely cents/units change
+  [PASS] semantic: dates moved  0 dates differ from baseline for same orders
+
+=== run04: Baseline after chatbot fixes ===
+  [PASS] schema: columns        missing=none
+  [PASS] row count              in=212 unique=200 out=200
+  [PASS] dedupe: order_id       duplicate ids in output=0
+  [PASS] ids preserved          lost ids=none
+  [PASS] rows matched to input  matched=200 of 200
+  [PASS] names trimmed+title    bad=0 e.g. []
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=6 of 195 e.g. [['ORD-1001', '$79.00', ''], ['ORD-1015', '$1299.00', '']]
+  [PASS] quantity flags         negative=6 flagged_ok=True; missing/non-numeric=11 flagged_ok=True
+  [PASS] email flags            mismatched=0
+  [PASS] emails unaltered       altered=0 e.g. []
+  [PASS] order_id format        bad=0
+  [PASS] semantic: price scale  median price 89.5 vs baseline 89.5 (x1.0)
+  [PASS] semantic: dates moved  0 dates differ from baseline for same orders
+
+=== run16: Baseline reference for drift tests ===
+  [PASS] schema: columns        missing=none
+  [PASS] row count              in=212 unique=200 out=200
+  [PASS] dedupe: order_id       duplicate ids in output=0
+  [PASS] ids preserved          lost ids=none
+  [PASS] rows matched to input  matched=200 of 200
+  [FAIL] names trimmed+title    bad=13 e.g. ['  Ethan Patel ', '  Oliver Chen ']
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=6 of 195 e.g. [['ORD-1001', '$79.00', ''], ['ORD-1015', '$1299.00', '']]
+  [PASS] quantity flags         negative=6 flagged_ok=True; missing/non-numeric=11 flagged_ok=True
+  [PASS] email flags            mismatched=0
+  [PASS] emails unaltered       altered=0 e.g. []
+  [PASS] order_id format        bad=0
+
+=== run07: Schema: drop `status` ===
+  [PASS] schema: columns        missing=none
+  [WARN] schema: source drift   columns absent from source: ['status'] (pipeline gave no warning)
+  [PASS] row count              in=212 unique=200 out=200
+  [PASS] dedupe: order_id       duplicate ids in output=0
+  [PASS] ids preserved          lost ids=none
+  [PASS] rows matched to input  matched=200 of 200
+  [PASS] names trimmed+title    bad=0 e.g. []
+  [PASS] cities standardised    bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=6 of 195 e.g. [['ORD-1001', '$79.00', ''], ['ORD-1015', '$1299.00', '']]
+  [PASS] quantity flags         negative=6 flagged_ok=True; missing/non-numeric=11 flagged_ok=True
+  [PASS] email flags            mismatched=0
+  [PASS] emails unaltered       altered=0 e.g. []
+  [PASS] order_id format        bad=0
+  [PASS] semantic: price scale  median price 89.5 vs baseline 89.5 (x1.0)
+  [PASS] semantic: dates moved  0 dates differ from baseline for same orders
+
+=== run10: Schema: rename customer_name -> full_name ===
+  [PASS] schema: columns        missing=none
+  [PASS] row count              in=212 unique=200 out=200
+  [PASS] dedupe: order_id       duplicate ids in output=0
+  [PASS] ids preserved          lost ids=none
+  [PASS] rows matched to input  matched=200 of 200
+  [FAIL] names trimmed+title    bad=13 e.g. ['  Ethan Patel ', '  Oliver Chen ']
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=6 of 195 e.g. [['ORD-1001', '$79.00', ''], ['ORD-1015', '$1299.00', '']]
+  [PASS] quantity flags         negative=6 flagged_ok=True; missing/non-numeric=11 flagged_ok=True
+  [PASS] email flags            mismatched=0
+  [PASS] emails unaltered       altered=0 e.g. []
+  [PASS] order_id format        bad=0
+  [PASS] semantic: price scale  median price 89.5 vs baseline 89.5 (x1.0)
+  [PASS] semantic: dates moved  0 dates differ from baseline for same orders
+
+=== run11: Schema: unit_price -> 'AUD 89.50' text ===
+  [PASS] schema: columns        missing=none
+  [PASS] row count              in=212 unique=200 out=200
+  [PASS] dedupe: order_id       duplicate ids in output=0
+  [PASS] ids preserved          lost ids=none
+  [PASS] rows matched to input  matched=200 of 200
+  [FAIL] names trimmed+title    bad=13 e.g. ['  Ethan Patel ', '  Oliver Chen ']
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [PASS] prices numeric+correct wrong/blank=0 of 195 e.g. []
+  [PASS] quantity flags         negative=6 flagged_ok=True; missing/non-numeric=11 flagged_ok=True
+  [PASS] email flags            mismatched=0
+  [PASS] emails unaltered       altered=0 e.g. []
+  [PASS] order_id format        bad=0
+  [PASS] semantic: price scale  median price 89.5 vs baseline 89.5 (x1.0)
+  [PASS] semantic: dates moved  0 dates differ from baseline for same orders
+
+=== run12: Schema: add `discount_code` ===
+  [PASS] schema: columns        missing=none
+  [WARN] schema: new columns    passed through unreviewed: ['discount_code']
+  [PASS] row count              in=212 unique=200 out=200
+  [PASS] dedupe: order_id       duplicate ids in output=0
+  [PASS] ids preserved          lost ids=none
+  [PASS] rows matched to input  matched=200 of 200
+  [FAIL] names trimmed+title    bad=13 e.g. ['  Ethan Patel ', '  Oliver Chen ']
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=6 of 195 e.g. [['ORD-1001', '$79.00', ''], ['ORD-1015', '$1299.00', '']]
+  [PASS] quantity flags         negative=6 flagged_ok=True; missing/non-numeric=11 flagged_ok=True
+  [PASS] email flags            mismatched=0
+  [PASS] emails unaltered       altered=0 e.g. []
+  [PASS] order_id format        bad=0
+  [PASS] semantic: price scale  median price 89.5 vs baseline 89.5 (x1.0)
+  [PASS] semantic: dates moved  0 dates differ from baseline for same orders
+
+=== run17: Semantic: dollars -> cents ===
+  [PASS] schema: columns        missing=none
+  [PASS] row count              in=212 unique=200 out=200
+  [PASS] dedupe: order_id       duplicate ids in output=0
+  [PASS] ids preserved          lost ids=none
+  [PASS] rows matched to input  matched=200 of 200
+  [FAIL] names trimmed+title    bad=13 e.g. ['  Ethan Patel ', '  Oliver Chen ']
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [FAIL] dates correct          wrong=11 (day/month swapped=11) e.g. [['ORD-1039', '01/05/2026', '2026-01-05'], ['ORD-1001', '08/04/2026', '2026-08-04']]
+  [WARN] dates: ambiguous       12 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=195 of 195 e.g. [['ORD-1030', '34900', '34900.0'], ['ORD-1163', '3995', '3995.0']]
+  [PASS] quantity flags         negative=6 flagged_ok=True; missing/non-numeric=11 flagged_ok=True
+  [PASS] email flags            mismatched=0
+  [PASS] emails unaltered       altered=0 e.g. []
+  [PASS] order_id format        bad=0
+  [FAIL] semantic: price scale  median price 8950 vs baseline 89.5 (x100.0) -> likely cents/units change
+  [PASS] semantic: dates moved  0 dates differ from baseline for same orders
+
+=== run18: Semantic: DD/MM -> MM/DD dates ===
+  [PASS] schema: columns        missing=none
+  [PASS] row count              in=212 unique=200 out=200
+  [PASS] dedupe: order_id       duplicate ids in output=0
+  [PASS] ids preserved          lost ids=none
+  [PASS] rows matched to input  matched=200 of 200
+  [FAIL] names trimmed+title    bad=13 e.g. ['  Ethan Patel ', '  Oliver Chen ']
+  [PASS] cities standardised    bad=0
+  [PASS] status title case      bad=0
+  [PASS] dates correct          wrong=0 (day/month swapped=0) e.g. []
+  [WARN] dates: ambiguous       77 input dates valid as both DD/MM and MM/DD
+  [FAIL] prices numeric+correct wrong/blank=6 of 195 e.g. [['ORD-1001', '$79.00', ''], ['ORD-1015', '$1299.00', '']]
+  [PASS] quantity flags         negative=6 flagged_ok=True; missing/non-numeric=11 flagged_ok=True
+  [PASS] email flags            mismatched=0
+  [PASS] emails unaltered       altered=0 e.g. []
+  [PASS] order_id format        bad=0
+  [PASS] semantic: price scale  median price 89.5 vs baseline 89.5 (x1.0)
+  [WARN] semantic: dates moved  11 dates differ from baseline for same orders
+
+=== Determinism (same input, separate runs) ===
+  [PASS] run01 vs run02         md5 77cdb4e363 vs 77cdb4e363 (same input)
+
+=== Summary ===
+status          FAIL  PASS  WARN
+case                            
+run01             10     6     1
+run01 vs run02     0     1     0
+run02             10     6     1
+run04              2    14     1
+run07              2    13     2
+run10              3    13     1
+run11              2    14     1
+run12              3    13     2
+run16              3    11     1
+run17              4    12     1
+run18              2    13     2
+
+Results written to data-validation/validation_results.csv
